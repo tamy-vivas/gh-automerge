@@ -1,19 +1,23 @@
 name: Events Demo 1
 on:
-  pull_request:
-    types: [opened, edited]
+  pull_request_review:
+    types: [submitted]
     branches:
       - main
-      - "dev-*" # dev-new dev-this-is-new
-      - "feature/**" # feature/new feature/new/button
+  # pull_request:
+  #   types: [opened, edited, closed]
+  #   branches:
+  #     - main
+  #     - "dev-*" # dev-new dev-this-is-new
+  #     - "feature/**" # feature/new feature/new/button
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - "dev-*" # dev-new dev-this-is-new
-      - "feature/**" # feature/new feature/new/button
-    paths-ignore:
-      - ".github/workflows/*"
+  # push:
+  #   branches:
+  #     - main
+  #     - "dev-*" # dev-new dev-this-is-new
+  #     - "feature/**" # feature/new feature/new/button
+  #   paths-ignore:
+  #     - ".github/workflows/*"
 jobs:
   deploy:
     runs-on: ubuntu-latest
