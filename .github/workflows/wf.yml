@@ -28,8 +28,8 @@ jobs:
       - name: Deploy project
         run: echo "Deploying..."
   merge_pull_request:
+    needs: deploy
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == false && github.event.pull_request.merged_by != null
     steps:
       - name: Merge Pull Request
         uses: juliangruber/merge-pull-request-action@v1
