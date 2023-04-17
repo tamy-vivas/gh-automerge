@@ -20,9 +20,20 @@ on:
   #     - ".github/workflows/*"
 jobs:
   deploy:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
       - name: Deploy project
         run: echo "Deploying..."
+  merge_pull_request:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == false && github.event.pull_request.merged_by != null
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Merge Pull Request
+        uses: peter-evans/marge-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
