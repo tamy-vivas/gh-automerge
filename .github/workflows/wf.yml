@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == false && github.event.pull_request.merged_by != null
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Merge Pull Request
-        uses: peter-evans/marge-action@v2
+        uses: juliangruber/merge-pull-request-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: 5
+          method: merge
