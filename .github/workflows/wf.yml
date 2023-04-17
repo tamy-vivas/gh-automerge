@@ -26,9 +26,9 @@ jobs:
       - name: Pull Request number
         run: echo "${{ toJSON(github.event.pull_request.number) }}"
       - name: Pull Request git url
-        run: echo "${{ toJSON(github.event.pull_request.git_url) }}"
+        run: echo "${{ toJSON(github.event.pull_request.repo.base.git_url) }}"
       - name: Fullname
-        run: echo "${{ toJSON(github.event.pull_request.full_name) }}"
+        run: echo "${{ toJSON(github.event.pull_request.repo.base.full_name) }}"
   merge_pull_request:
     needs: deploy
     runs-on: ubuntu-latest
