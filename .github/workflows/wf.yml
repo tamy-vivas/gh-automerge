@@ -48,12 +48,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: sit
+          ref: main
           fetch-depth: 0
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           assignees: tamy-vivas
-          base: sit
-          branch: main
+          base: main
+          head: qa
           token: ${{ secrets.MY_GITHUB_TOKEN }}
