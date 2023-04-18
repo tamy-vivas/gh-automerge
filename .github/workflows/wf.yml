@@ -3,7 +3,7 @@ on:
   pull_request_review:
     types: [submitted]
     branches:
-      - main
+      - sit
   # pull_request:
   #   types: [opened, edited, closed]
   #   branches:
@@ -21,7 +21,7 @@ on:
 jobs:
   deploy:
     if: github.event.review.state == 'approved'
-    environment: main
+    environment: sit
     runs-on: ubuntu-latest
     steps:
       - name: Pull Request number
