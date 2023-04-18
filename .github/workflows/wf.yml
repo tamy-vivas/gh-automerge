@@ -21,6 +21,7 @@ on:
 jobs:
   deploy:
     if: github.event.review.state == 'approved'
+    environment: main
     runs-on: ubuntu-latest
     steps:
       - name: Pull Request number
@@ -29,6 +30,8 @@ jobs:
         run: echo "${{ toJSON(github.event.pull_request.repo.base.git_url) }}"
       - name: Fullname
         run: echo "${{ toJSON(github.event.pull_request.repo.base.full_name) }}"
+      - name: Get ENV Variable
+        run: echo "${{vars.TEST}}"
   merge_pull_request:
     needs: deploy
     runs-on: ubuntu-latest
