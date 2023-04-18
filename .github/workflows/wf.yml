@@ -56,4 +56,5 @@ jobs:
           assignees: tamy-vivas
           base: main
           head: qa
+          draft: true
           token: ${{ secrets.MY_GITHUB_TOKEN }}
