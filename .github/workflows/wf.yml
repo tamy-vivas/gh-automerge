@@ -42,3 +42,14 @@ jobs:
           github-token: ${{ secrets.MY_GITHUB_TOKEN }}
           number: ${{toJSON(github.event.pull_request.number)}}
           method: merge
+  create_main_pull_request:
+    needs: merge_pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: sit
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: main
