@@ -56,4 +56,6 @@ jobs:
           title: "Merge SIT into Main"
           body: "This is an automated pull request created by a GitHub Action"
           commit-message: "Merge SIT into Main"
-          branch: main
+          base: main
+          branch: sit
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
