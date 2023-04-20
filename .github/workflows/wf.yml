@@ -42,7 +42,7 @@ jobs:
       packages: write
       pages: write
       pull-requests: write
-      repository-projects: write
+      #repository-projects: write
       #security-events: write
     needs: deploy
     runs-on: ubuntu-latest
