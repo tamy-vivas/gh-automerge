@@ -41,9 +41,9 @@ jobs:
       issues: write
       packages: write
       pages: write
-      pull: write
-      repository: write
-      security: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
     needs: deploy
     runs-on: ubuntu-latest
     steps:
