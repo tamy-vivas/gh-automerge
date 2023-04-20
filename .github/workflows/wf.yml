@@ -38,8 +38,8 @@ jobs:
       checks: write
       contents: write
       deployments: write
-      issues: write
-      packages: write
+      #issues: write
+      #packages: write
       #pages: write
       #pull-requests: write
       #repository-projects: write
