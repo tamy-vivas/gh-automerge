@@ -34,9 +34,9 @@ jobs:
         run: echo "${{vars.TEST}}"
   merge_pull_request:
     permissions:
+      contents: write
       #actions: write
       #checks: write
-      contents: write
       # deployments: write
       #issues: write
       #packages: write
@@ -53,18 +53,20 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{toJSON(github.event.pull_request.number)}}
           method: merge
-  # create_main_pull_request:
-  #   needs: merge_pull_request
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         ref: sit
-  #         fetch-depth: 0
-  #     - name: Create Pull Request
-  #       uses: peter-evans/create-pull-request@v5
-  #       with:
-  #         assignees: tamy-vivas
-  #         base: sit
-  #         branch: main
-  #         token: ${{ secrets.MY_GITHUB_TOKEN }}
+  create_main_pull_request:
+    permissions:
+      contents: write
+    needs: merge_pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: sit
+          fetch-depth: 0
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          assignees: tamy-vivas
+          base: sit
+          branch: main
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
