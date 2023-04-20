@@ -33,28 +33,28 @@ jobs:
       - name: Get ENV Variable
         run: echo "${{vars.TEST}}"
   merge_pull_request:
+    permissions: write-all
     needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Merge Pull Request
         uses: juliangruber/merge-pull-request-action@v1
         with:
-          github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{toJSON(github.event.pull_request.number)}}
           method: merge
-  create_main_pull_request:
-    needs: merge_pull_request
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: sit
-          fetch-depth: 0
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          assignees: tamy-vivas
-          base: sit
-          branch: main
-          draft: true
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
+  # create_main_pull_request:
+  #   needs: merge_pull_request
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: sit
+  #         fetch-depth: 0
+  #     - name: Create Pull Request
+  #       uses: peter-evans/create-pull-request@v5
+  #       with:
+  #         assignees: tamy-vivas
+  #         base: sit
+  #         branch: main
+  #         token: ${{ secrets.MY_GITHUB_TOKEN }}
