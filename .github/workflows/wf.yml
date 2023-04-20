@@ -19,7 +19,8 @@ on:
   #   paths-ignore:
   #     - ".github/workflows/*"
 permissions:
-  pull-request: write
+  pull-requests: write
+
 jobs:
   deploy:
     if: github.event.review.state == 'approved'
@@ -41,7 +42,7 @@ jobs:
       - name: Merge Pull Request
         uses: juliangruber/merge-pull-request-action@v1
         with:
-          github-token: ${{ GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{toJSON(github.event.pull_request.number)}}
           method: merge
   # create_main_pull_request:
