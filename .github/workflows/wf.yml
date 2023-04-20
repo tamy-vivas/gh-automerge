@@ -34,7 +34,7 @@ jobs:
         run: echo "${{vars.TEST}}"
   merge_pull_request:
     permissions:
-      actions: write
+      #actions: write
       checks: write
       contents: write
       # deployments: write
