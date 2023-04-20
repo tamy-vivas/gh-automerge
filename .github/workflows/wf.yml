@@ -18,9 +18,6 @@ on:
   #     - "feature/**" # feature/new feature/new/button
   #   paths-ignore:
   #     - ".github/workflows/*"
-permissions:
-  pull-requests: write
-
 jobs:
   deploy:
     if: github.event.review.state == 'approved'
@@ -36,6 +33,7 @@ jobs:
       - name: Get ENV Variable
         run: echo "${{vars.TEST}}"
   merge_pull_request:
+    permissions: write-all
     needs: deploy
     runs-on: ubuntu-latest
     steps:
