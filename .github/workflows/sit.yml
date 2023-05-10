@@ -2,11 +2,11 @@ name: SIT Flow
 on:
   pull_request_review:
     types: [submitted]
-    branches:
-      - sit
 jobs:
   lint:
-    if: github.event.review.state == 'approved'
+    if: |
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'sit'
     runs-on: ubuntu-latest
     steps:
       - name: Lint code
