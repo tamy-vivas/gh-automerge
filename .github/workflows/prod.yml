@@ -1,0 +1,32 @@
+name: Main Flow
+on:
+  pull_request_review:
+    types: [submitted]
+jobs:
+  build:
+    if: |
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'main'
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build code
+        run: echo "Building code"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy code
+        run: echo "Deploying"
+  merge:
+    needs: deploy
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge pull request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{toJSON(github.event.pull_request.number)}}
+          method: squash
