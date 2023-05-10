@@ -56,7 +56,7 @@ jobs:
               title: '[NEW PR] Sync main',
               owner,
               repo,
-              head: '${{ github.ref_name }}',
+              head: 'sit',
               base: 'main',
               body: [
                 'This PR is auto-generated',
