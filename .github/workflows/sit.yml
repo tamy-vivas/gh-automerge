@@ -1,0 +1,77 @@
+name: SIT Flow
+on:
+  pull_request_review:
+    types: [submitted]
+    branches:
+      - sit
+jobs:
+  lint:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint code
+        run: echo "Linter done"
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build code
+        run: echo "Building code"
+  schema_validator:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Schema validator
+        run: echo "validating schema"
+  deploy:
+    needs: schema_validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy code
+        run: echo "Deploying"
+  merge:
+    needs: deploy
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge pull request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{toJSON(github.event.pull_request.number)}}
+          method: squash
+  create_main_pull_request:
+    needs: merge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Create Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const result = await github.rest.pulls.create({
+              title: '[NEW PR] Sync main',
+              owner,
+              repo,
+              head: '${{ github.ref_name }}',
+              base: 'main',
+              body: [
+                'This PR is auto-generated',
+                '[Full history of actions](https://github.com/telus-csd-tvs/opus-sdm-newrelic/actions).'
+              ].join('\n')
+            });
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: result.data.number,
+              labels: ['feature', 'automated pr']
+            });
+            await github.rest.pulls.requestReviewers({
+              owner,
+              repo,
+              pull_number: result.data.number,
+              reviewers: ['tamy-vivas'],
+            });
