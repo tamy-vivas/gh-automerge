@@ -6,7 +6,7 @@ jobs:
   build:
     if: |
       github.event.review.state == 'approved' &&
-      github.head_ref == 'main'
+      github.event.pull_request.base.ref == 'main'
 
     runs-on: ubuntu-latest
     steps:
