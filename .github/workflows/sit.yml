@@ -19,6 +19,7 @@ jobs:
         run: echo "Building code"
   schema_validator:
     needs: build
+
     runs-on: ubuntu-latest
     steps:
       - name: Schema validator
