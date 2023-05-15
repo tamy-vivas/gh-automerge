@@ -1,0 +1,12 @@
+name: SIT SDM Dashboard Flow
+on:
+  push:
+    branches:
+      - "sit"
+jobs:
+  update-sdm-dashboard:
+    runs-on: ubuntu-latest
+    environment: sit
+    steps:
+      - name: Deploy new SDM Dashboard
+        run: echo "Executed after a push event"
