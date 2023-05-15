@@ -1,7 +1,9 @@
 name: SIT SDM Dashboard Flow
 on:
-  merge_group:
-    types: [checks_requested]
+  push:
+    branches:
+      - "main"
+      - "sit"
 jobs:
   update-sdm-dashboard:
     runs-on: ubuntu-latest
