@@ -1,8 +1,7 @@
 name: SIT SDM Dashboard Flow
 on:
   pull_request:
-    types:
-      - closed
+    types: [closed, synchronize]
 jobs:
   update-sdm-dashboard:
     runs-on: ubuntu-latest
