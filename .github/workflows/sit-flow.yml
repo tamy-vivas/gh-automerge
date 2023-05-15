@@ -8,6 +8,7 @@ jobs:
       github.event.review.state == 'approved' &&
       github.event.pull_request.base.ref == 'sit'
     runs-on: ubuntu-latest
+    environment: sit
     steps:
       - name: Lint code
         run: echo "Linter done"
