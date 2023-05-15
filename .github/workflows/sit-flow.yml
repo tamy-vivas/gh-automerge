@@ -53,5 +53,5 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const script = require('./.github/actions/create-pr/action.js')
-            console.log(script({github, context}))
+            const script = require('./.github/actions/create-pr/action.js');
+            script({github, context, core});
