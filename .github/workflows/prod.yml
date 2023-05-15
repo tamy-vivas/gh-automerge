@@ -9,6 +9,7 @@ jobs:
       github.event.pull_request.base.ref == 'main'
 
     runs-on: ubuntu-latest
+    environment: main
     steps:
       - name: Build code
         run: echo "Building code"
