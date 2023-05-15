@@ -1,9 +1,8 @@
 name: SIT SDM Dashboard Flow
 on:
-  push:
-    branches:
-      - "main"
-      - "sit"
+  pull_request:
+    types:
+      - closed
 jobs:
   update-sdm-dashboard:
     runs-on: ubuntu-latest
